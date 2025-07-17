@@ -3,22 +3,27 @@ name: Cypress E2E Tests via Ngrok
 on: workflow_dispatch
 
 jobs:
-  cypress-tests:
+  cypress-ngrok:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: 📦 Setup Node
         uses: actions/setup-node@v3
-        with: { node-version: '18' }
+        with:
+          node-version: 18
 
-      - name: Install dependencies
+      - name: 📦 Install deps
         run: npm ci
 
-      - name: Run Cypress tests against Ngrok tunnel
+      - name: 🌐 Run Cypress smoke test on Ngrok
+        env:
+          # set your current ngrok URL here as a secret or directly
+          API_BASE_URL: https://f89aa2136e9b.ngrok-free.app
         run: |
-          # 🔑  Paste your ngrok tunnel + path prefix here:
-          NG='https://f89aa2136e9b.ngrok-free.app/UL_SavingsAccount-API_prototype'
-          echo "✅ baseUrl=$NG"
-          npx cypress run --config baseUrl=$NG
+          echo "✅ baseUrl=$API_BASE_URL"
+          npx cypress run \
+            --spec "cypress/e2e/PrototypeAPITests.cy.js" \
+            --env API_BASE_URL=$API_BASE_URL
