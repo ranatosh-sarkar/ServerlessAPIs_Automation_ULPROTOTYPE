@@ -24,4 +24,4 @@ jobs:
           API_BASE_URL: https://dcc1140d8faf.ngrok-free.app
         run: |
           echo "✅ Running Cypress tests on $API_BASE_URL"
-          npx cypress run --config baseUrl=$API_BASE_URL --spec "cypress/e2e/PrototypeAPITests.cy.js"
+          npx cypress run --config baseUrl=$API_BASE_URL --spec "cypress/e2e/UL_Prototype_API_Test/PrototypeAPITests.cy.js"
