@@ -1,7 +1,5 @@
+// cypress.config.js
 const { defineConfig } = require('cypress');
-
-// Get the dynamic port from environment variable or fallback to 8082
-const port = process.env.API_PORT || '8082';
 
 module.exports = defineConfig({
   reporter: 'cypress-mochawesome-reporter',
@@ -15,10 +13,10 @@ module.exports = defineConfig({
     saveAllAttempts: false,
     quiet: true
   },
-  defaultCommandTimeout: 90000,  // ⏱️ wait up to 90 seconds for commands
-  requestTimeout: 90000,         // ⏱️ wait up to 90 seconds for cy.request
+  defaultCommandTimeout: 90000,
+  requestTimeout: 90000,
   e2e: {
-    baseUrl: `http://localhost:${port}/UL_SavingsAccount-API_prototype`,
+    baseUrl: process.env.API_BASE_URL || 'http://localhost:8082/UL_SavingsAccount-API_prototype',
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
     }
