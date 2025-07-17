@@ -26,5 +26,5 @@ jobs:
         run: |
           echo "✅ Running Cypress smoke test on $API_BASE_URL"
           npx cypress run \
-            --spec "cypress/e2e/UL_Prototype_API_Test/UL_Prototype_API_Test/PrototypeAPITests.cy.js" \
+            --spec "cypress/e2e/PrototypeAPITests.cy.js" \
             --config baseUrl=$API_BASE_URL
