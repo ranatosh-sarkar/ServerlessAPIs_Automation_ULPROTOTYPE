@@ -21,10 +21,9 @@ jobs:
 
       - name: 🌐 Run Cypress Tests Against Ngrok Tunnel
         env:
-          API_BASE_URL: ${{ secrets.NGROK_URL }}  # set this to “https://<your-id>.ngrok-free.app/UL_SavingsAccount-API_prototype”
+          API_BASE_URL: https://f89aa2136e9b.ngrok-free.app   # your current ngrok URL
         run: |
           echo "✅ Running Cypress tests on $API_BASE_URL"
           npx cypress run \
             --spec "cypress/e2e/PrototypeAPITests.cy.js" \
-            --env API_BASE_URL=$API_BASE_URL \
-            --config baseUrl=$API_BASE_URL
+            --config "e2e.baseUrl=$API_BASE_URL"
