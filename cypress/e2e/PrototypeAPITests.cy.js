@@ -4,10 +4,9 @@ describe('✅ Smoke Test – GET /registers through ngrok', () => {
   it('returns 200 OK and an array', () => {
     cy.request({
       method: 'GET',
-      // full path via env var
       url: `${Cypress.env('API_BASE_URL')}/UL_SavingsAccount-API_prototype/registers`,
-      timeout: 90_000,               // wait up to 90s
-      failOnStatusCode: false,       // don’t fail on non-2xx automatically
+      timeout: 90000,
+      failOnStatusCode: false,
       headers: {
         'ngrok-skip-browser-warning': 'true'
       }
