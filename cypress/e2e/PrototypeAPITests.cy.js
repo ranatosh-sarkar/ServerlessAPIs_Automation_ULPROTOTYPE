@@ -3,7 +3,7 @@
 @@ describe('✅ Smoke Test – GET /registers through ngrok', () => {
 -    cy.request({
 -      method: 'GET',
--      url: `${Cypress.config().baseUrl}/UL_SavingsAccount-API_prototype/registers`,
+-      url: `${Cypress.config().baseUrl}/registers`,
 +    cy.request({
 +      method: 'GET',
 +      url: '/registers',
