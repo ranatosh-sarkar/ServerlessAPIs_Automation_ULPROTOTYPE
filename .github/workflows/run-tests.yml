@@ -17,11 +17,11 @@ jobs:
           node-version: '18'
 
       - name: 📦 Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: 🌐 Run Cypress Tests Against Ngrok Tunnel
         env:
-          API_BASE_URL: https://f89aa2136e9b.ngrok-free.app   # your current ngrok URL
+          API_BASE_URL: ${{ secrets.NGROK_URL }}   # or hard-code your current ngrok URL here
         run: |
           echo "✅ Running Cypress tests on $API_BASE_URL"
           npx cypress run \
