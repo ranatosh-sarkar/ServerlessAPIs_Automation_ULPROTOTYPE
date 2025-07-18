@@ -58,8 +58,8 @@ export function setup() {
    VU execution
 ------------------------------------------------------------------- */
 export default function () {
-  const PORT = __ENV.API_PORT || '8083';
-  const res = http.get(`http://localhost:${PORT}/UL_SavingsAccount-API_prototype/registers`);
+const BASE_URL = __ENV.API_BASE_URL || 'http://localhost:8082/UL_SavingsAccount-API_prototype';
+const res = http.get(`${BASE_URL}/registers`);
 
   check(res, {
     'status is 200': (r) => r.status === 200,
