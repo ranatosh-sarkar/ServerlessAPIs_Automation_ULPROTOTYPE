@@ -1,29 +1,33 @@
-name: Cypress E2E Tests via Ngrok
+name: Cypress API Tests
 
 on:
   workflow_dispatch:
+    inputs:
+      api_base_url:
+        description: 'The ngrok URL to run Cypress tests against (e.g. https://xxxx.ngrok-free.app/UL_SavingsAccount-API_prototype)'
+        required: true
+        type: string
 
 jobs:
-  cypress-tests:
+  cypress-run:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⬇️ Checkout Repo
-        uses: actions/checkout@v3
+      - name: 🛑 Checkout Repo
+        uses: actions/checkout@v4
 
-      - name: 📦 Install Node.js
-        uses: actions/setup-node@v3
+      - name: 🔧 Setup Node.js v18.x
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '18.x'
+          cache: 'npm'
 
-      - name: 📦 Install Dependencies
-        run: npm ci
+      - name: 📥 Install Dependencies
+        run: npm install
 
-      - name: 🌐 Run Cypress Tests Against Ngrok Tunnel
-        env:
-          API_BASE_URL: https://cf1f5465744f.ngrok-free.app   # or hard-code your current ngrok URL here
+      - name: 🌍 Set Dynamic Cypress BaseURL
         run: |
-          echo "✅ Running Cypress tests on $API_BASE_URL"
-          npx cypress run \
-            --spec "cypress/e2e/PrototypeAPITests.cy.js" \
-            --config "e2e.baseUrl=$API_BASE_URL"
+          echo "CYPRESS_BASE_URL=${{ github.event.inputs.api_base_url }}" >> $GITHUB_ENV
+
+      - name: 🚀 Run Cypress Tests
+        run: npm run cy:run
