@@ -1,15 +1,15 @@
-name: Cypress API Tests
+name: Cypress & k6 API Tests
 
 on:
   workflow_dispatch:
     inputs:
       api_base_url:
-        description: 'The ngrok URL to run Cypress tests against (e.g. https://xxxx.ngrok-free.app/UL_SavingsAccount-API_prototype)'
+        description: 'Base URL for API tests (e.g. https://xxxx.ngrok-free.app/UL_SavingsAccount-API_prototype)'
         required: true
         type: string
 
 jobs:
-  cypress-run:
+  run-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,9 +25,22 @@ jobs:
       - name: 📥 Install Dependencies
         run: npm install
 
-      - name: 🌍 Set Dynamic Cypress BaseURL
+      - name: 🌍 Set Base URLs
         run: |
           echo "CYPRESS_BASE_URL=${{ github.event.inputs.api_base_url }}" >> $GITHUB_ENV
+          echo "API_BASE_URL=${{ github.event.inputs.api_base_url }}" >> $GITHUB_ENV
 
       - name: 🚀 Run Cypress Tests
         run: npm run cy:run
+
+      - name: ⚡️ Install k6
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gnupg2
+          wget -q -O - https://dl.k6.io/key.gpg | sudo apt-key add -
+          echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install -y k6
+
+      - name: 📊 Run k6 Performance Tests
+        run: npm run k6:run
