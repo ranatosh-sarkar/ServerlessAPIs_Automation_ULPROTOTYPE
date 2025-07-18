@@ -1,7 +1,7 @@
 {
   "name": "ul-api_automation",
   "version": "1.0.0",
-  "description": "An automation testing framewoork to test APIs developed for a SavingsAccount prototype. This project is a part of my UL thesis.",
+  "description": "An automation testing framework to test APIs developed for a SavingsAccount prototype. This project is a part of my UL thesis.",
   "main": "index.js",
   "scripts": {
     "cy:run": "npx cypress run --reporter cypress-mochawesome-reporter --reporter-options \"reportDir=cypress/reports/html,overwrite=false,html=true,json=true\"",
@@ -20,7 +20,6 @@
   },
   "overrides": {
     "glob": "10.2.7",
-    "mochawesome-merge": "4.4.1",
     "@isaacs/balanced-match": "3.0.0",
     "@isaacs/brace-expansion": "4.0.0",
     "jackspeak": "3.0.0",
